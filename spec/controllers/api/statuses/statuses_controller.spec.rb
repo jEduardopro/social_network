@@ -23,5 +23,21 @@ describe Api::Statuses::StatusesController, type: :controller do
 				expect(subject).to have_http_status(:unprocessable_entity)
 			end
 		end
+
+		context 'when the body does not have at least 5 characters' do
+			let(:body) { 'hi' }
+			it 'returns an error' do
+				subject
+				expect(subject).to have_http_status(:unprocessable_entity)
+			end
+		end
+
+		context 'when the body have more 140 characters' do
+			let(:body) { 'a' * 141 }
+			it 'returns an error' do
+				subject
+				expect(subject).to have_http_status(:unprocessable_entity)
+			end
+		end
 	end
 end
