@@ -3,7 +3,6 @@ describe Api::Statuses::StatusesController, type: :controller do
 
 	describe 'POST create' do
 		subject { post :create, params: {body: body } }
-		let(:user) { create(:user) }
 		let(:body) { 'my first status' }
 
 		context 'when a status is created' do
@@ -11,8 +10,17 @@ describe Api::Statuses::StatusesController, type: :controller do
 				subject
 				expect(subject).to have_http_status(:ok)
 				expect(response.body).to include_json(
+					user_id: auth_user.id,
 					body: body,
 				)
+			end
+		end
+
+		context 'when the body is invalid' do
+			let(:body) { '' }
+			it 'returns an error' do 
+				subject
+				expect(subject).to have_http_status(:unprocessable_entity)
 			end
 		end
 	end
