@@ -7,6 +7,8 @@ class User < ApplicationRecord
 	validates :name, presence: true
 	validates :email, presence: true, uniqueness: true
 
+	has_many :statuses, dependent: :destroy
+
 	def password=(password_str)
 		unless password_str.blank?
 			@password = password_str

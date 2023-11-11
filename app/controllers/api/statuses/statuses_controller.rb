@@ -1,9 +1,18 @@
 module Api
 	module Statuses
-		class StatusesController < ApplicationController
+		class StatusesController < AuthenticatedController
 
 			def create
-				render json: {}, status: :ok
+				response_with_interactor(
+					interactor: ::Statuses::Create,
+					params: {create_params:, user:}
+				)
+			end
+
+			private
+
+			def create_params
+				params.permit(:body)
 			end
 
 		end
