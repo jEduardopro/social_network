@@ -10,15 +10,18 @@ module Api
 		def response_with_collection(interactor:, params:)
 			interactor = interactor.call(params)
 			return render_error(interactor.error) if interactor.failure?
-
-
-
+			
+			data = paginated_collection_formatted(interactor)
+			render json: data, status: :ok
 		end
 
-		def paginated_collection(interactor)
+		def paginated_collection_formatted(interactor)
 			{
-				data: interactor.result,
-				page: interactor.result[:page]
+				data: interactor.result[:collection],
+				page: interactor.result[:page].to_i,
+				per_page: interactor.result[:per_page].to_i,
+				total_pages: interactor.result[:total_pages].to_i,
+				next_page: interactor.result[:next_page].to_i
 			}
 		end
 

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 	
 	namespace :api do
 		namespace :statuses do 
+			get 'index', action: :index, controller: :statuses
 			post 'create', action: :create, controller: :statuses
 		end
 	end

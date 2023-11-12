@@ -3,12 +3,16 @@ describe Api::Statuses::StatusesController, type: :controller do
 
 	describe 'GET index' do
 		subject { get :index }
-		let(:statuses) { create_list(:status, 3) }
+		let!(:statuses) { create_list(:status, 3, user: auth_user) }
 
 		context 'when there are statuses' do
 			it 'returns the statuses' do
 				subject
 				expect(subject).to have_http_status(:ok)
+				expect(response.body).to include_json(
+					page: 1,
+					per_page: 15,					
+				)
 				expect(JSON.parse(response.body)['data'].size).to eq(3)
 			end
 		end

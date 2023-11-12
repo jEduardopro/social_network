@@ -1,9 +1,13 @@
 module Api
 	module Statuses
 		class StatusesController < AuthenticatedController
+			include PaginationParams
 
 			def index
-				
+				response_with_collection(
+					interactor: ::Statuses::Index,
+					params: {pagination_params:, user:}
+				)
 			end
 
 			def create
