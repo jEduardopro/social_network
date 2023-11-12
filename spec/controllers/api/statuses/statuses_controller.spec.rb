@@ -1,6 +1,19 @@
 describe Api::Statuses::StatusesController, type: :controller do
 	include_context 'auth user'
 
+	describe 'GET index' do
+		subject { get :index }
+		let(:statuses) { create_list(:status, 3) }
+
+		context 'when there are statuses' do
+			it 'returns the statuses' do
+				subject
+				expect(subject).to have_http_status(:ok)
+				expect(JSON.parse(response.body)['data'].size).to eq(3)
+			end
+		end
+	end
+
 	describe 'POST create' do
 		subject { post :create, params: {body: body } }
 		let(:body) { 'my first status' }

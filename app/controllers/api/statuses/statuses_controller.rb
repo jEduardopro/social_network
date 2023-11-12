@@ -2,6 +2,10 @@ module Api
 	module Statuses
 		class StatusesController < AuthenticatedController
 
+			def index
+				
+			end
+
 			def create
 				response_with_interactor(
 					interactor: ::Statuses::Create,
