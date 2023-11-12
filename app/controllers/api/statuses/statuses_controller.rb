@@ -6,7 +6,8 @@ module Api
 			def index
 				response_with_collection(
 					interactor: ::Statuses::Index,
-					params: {pagination_params:, user:}
+					params: {pagination_params:, user:},
+					serializer: StatusSerializer
 				)
 			end
 

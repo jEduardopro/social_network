@@ -5,7 +5,7 @@ class StatusSerializer < ActiveModel::Serializer
 		object.uuid
 	end
 
-	belongs_to :user
+	# belongs_to :user
 
 	def user_name
 		object.user.name

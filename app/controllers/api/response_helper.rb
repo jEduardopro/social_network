@@ -7,17 +7,17 @@ module Api
 			render_success(interactor.result, :ok)
 		end
 
-		def response_with_collection(interactor:, params:)
+		def response_with_collection(interactor:, params:, serializer:)
 			interactor = interactor.call(params)
 			return render_error(interactor.error) if interactor.failure?
 			
-			data = paginated_collection_formatted(interactor)
+			data = paginated_collection_formatted(interactor, serializer)
 			render json: data, status: :ok
 		end
 
-		def paginated_collection_formatted(interactor)
+		def paginated_collection_formatted(interactor, serializer)
 			{
-				data: interactor.result[:collection],
+				data: interactor.result[:collection].map { |status| serializer.new(status) },
 				page: interactor.result[:page].to_i,
 				per_page: interactor.result[:per_page].to_i,
 				total_pages: interactor.result[:total_pages].to_i,

@@ -16,7 +16,8 @@ describe Api::Statuses::StatusesController, type: :controller do
 				)
 				parse_body = JSON.parse(response.body)
 				expect(parse_body['data'].size).to eq(4)
-				expect(parse_body['data'][0]['id']).to eq(last_status.id)
+				expect(parse_body['data'][0]['id']).to eq(last_status.uuid)
+				expect(parse_body['data'][0]['user_name']).to eq(last_status.user.name)
 			end
 		end
 	end
@@ -28,9 +29,9 @@ describe Api::Statuses::StatusesController, type: :controller do
 		context 'when a status is created' do
 			it 'returns the status created' do
 				subject
-				expect(subject).to have_http_status(:ok)
+				expect(subject).to have_http_status(:ok)				
 				expect(response.body).to include_json(
-					user_id: auth_user.id,
+					user_name: auth_user.name,
 					body: body,
 				)
 			end
