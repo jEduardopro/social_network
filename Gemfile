@@ -19,6 +19,7 @@ gem "redis", "~> 4.0"
 gem "sidekiq"
 gem "discard", "~> 1.2"
 gem "interactor", "~> 3.0"
+gem "jwt"
 gem 'config', "~> 4.2.0"
 gem "kaminari"
 
