@@ -2,7 +2,7 @@ module Statuses
 	class Index < Integrations::Paginator
 
 		def index
-			user.statuses						
+			user.statuses		
 		end
 
 		private

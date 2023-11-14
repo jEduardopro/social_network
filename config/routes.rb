@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 		end
 
 		namespace :statuses do 
-			get 'index', action: :index, controller: :statuses
+			get '/', action: :index, controller: :statuses
 			post 'create', action: :create, controller: :statuses
+			post ':id/likes', action: :create, controller: :status_likes
 		end
 	end
 
