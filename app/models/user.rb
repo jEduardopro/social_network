@@ -17,4 +17,8 @@ class User < ApplicationRecord
 		end
 	end
 
+	def authenticate(password)
+		password.present? && password_digest.present? && password_digest == BCrypt::Engine.hash_secret(password, password_salt)
+	end
+
 end

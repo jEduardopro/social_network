@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 	namespace :api do
 		namespace :auth do
 			post 'register', action: :create, controller: :registers
+			post 'sign_in', action: :sign_in, controller: :logins
 		end
 
 		namespace :statuses do 

@@ -12,4 +12,19 @@ describe User, type: :model do
 	describe 'associations' do
 		it { should have_many(:statuses).dependent(:destroy) }	
 	end
+
+	describe '.authenticate' do
+		let!(:user) { create(:user) }
+		context "when password is valid" do
+			it "returns true" do
+				expect(user.authenticate(user.password)).to be_truthy
+			end
+		end
+
+		context "when password is invalid" do
+			it "returns false" do
+				expect(user.authenticate('invalid_password')).to be_falsy
+			end
+		end
+	end
 end
