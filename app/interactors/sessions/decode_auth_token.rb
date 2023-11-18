@@ -28,7 +28,7 @@ module Sessions
 		end
 
 		def signing_key
-			'15e79b811f77118b69ed8d47661d0bf5a98923b3752dac62e19a1901538d95a2'
+			Rails.application.credentials.config[:jwt_secret_key]
 		end
 
 	end

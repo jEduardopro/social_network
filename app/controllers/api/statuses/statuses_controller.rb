@@ -1,12 +1,12 @@
 module Api
 	module Statuses
-		class StatusesController < ApplicationController
+		class StatusesController < AuthenticatedController
 			include PaginationParams
 
 			def index
 				response_with_collection(
 					interactor: ::Statuses::Index,
-					params: {pagination_params:, user: User.first},
+					params: {pagination_params:, user:},
 					serializer: StatusSerializer
 				)
 			end
